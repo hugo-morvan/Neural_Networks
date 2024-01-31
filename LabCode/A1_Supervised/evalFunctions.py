@@ -14,7 +14,8 @@ def calcAccuracy(LPred, LTrue):
     # --------------------------------------------
     # === Your code here =========================
     # --------------------------------------------
-    acc = None
+    cM = calcConfusionMatrix(LPred, LTrue)
+    acc = calcAccuracyCM(cM)
     # ============================================
     return acc
 
@@ -34,7 +35,11 @@ def calcConfusionMatrix(LPred, LTrue):
     # --------------------------------------------
     # === Your code here =========================
     # --------------------------------------------
-    cM = None
+    TP = np.sum(np.logical_and(LPred == 1, LTrue == 1))
+    TN = np.sum(np.logical_and(LPred == 0, LTrue == 0))
+    FP = np.sum(np.logical_and(LPred == 1, LTrue == 0))
+    FN = np.sum(np.logical_and(LPred == 0, LTrue == 1))
+    cM = [[TP, FP], [FN, TN]]
     # ============================================
 
     return cM
@@ -54,7 +59,7 @@ def calcAccuracyCM(cM):
     # --------------------------------------------
     # === Your code here =========================
     # --------------------------------------------
-    acc = None
+    acc = (cM[0][0] + cM[1][1]) / (cM[0][0] + cM[1][1] + cM[0][1] + cM[1][0])
     # ============================================
     
     return acc
