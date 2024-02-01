@@ -35,11 +35,14 @@ def calcConfusionMatrix(LPred, LTrue):
     # --------------------------------------------
     # === Your code here =========================
     # --------------------------------------------
-    TP = np.sum(np.logical_and(LPred == 1, LTrue == 1))
-    TN = np.sum(np.logical_and(LPred == 0, LTrue == 0))
-    FP = np.sum(np.logical_and(LPred == 1, LTrue == 0))
-    FN = np.sum(np.logical_and(LPred == 0, LTrue == 1))
-    cM = [[TP, FP], [FN, TN]]
+    #https://stackoverflow.com/questions/61193476/constructing-a-confusion-matrix-from-data-without-sklearn
+    nr_classes = int(max(LTrue) - min(LTrue)) + 1 #find number of classes
+
+    cM = [[sum([(LTrue[i] == true_class) and (LPred[i] == pred_class) 
+                for i in range(len(LTrue))])
+           for pred_class in range(1, nr_classes + 1)] 
+           for true_class in range(1, nr_classes + 1)]
+    cM = np.array(cM)
     # ============================================
 
     return cM
@@ -59,7 +62,7 @@ def calcAccuracyCM(cM):
     # --------------------------------------------
     # === Your code here =========================
     # --------------------------------------------
-    acc = (cM[0][0] + cM[1][1]) / (cM[0][0] + cM[1][1] + cM[0][1] + cM[1][0])
+    acc = sum(np.diag(cM)) / np.sum(cM)
     # ============================================
     
     return acc
