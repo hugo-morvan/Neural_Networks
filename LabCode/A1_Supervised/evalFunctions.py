@@ -39,8 +39,8 @@ def calcConfusionMatrix(LPred, LTrue):
     nr_classes = int(max(LTrue) - min(LTrue)) + 1 #find number of classes
 
     cM = [[sum([(LTrue[i] == true_class) and (LPred[i] == pred_class) for i in range(len(LTrue))])
-           for pred_class in range(1, nr_classes + 1)] 
-           for true_class in range(1, nr_classes + 1)]
+           for pred_class in range(0, nr_classes )] 
+           for true_class in range(0, nr_classes )]
     cM = np.array(cM)
     # ============================================
 
