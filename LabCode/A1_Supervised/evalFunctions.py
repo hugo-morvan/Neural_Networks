@@ -38,8 +38,7 @@ def calcConfusionMatrix(LPred, LTrue):
     #https://stackoverflow.com/questions/61193476/constructing-a-confusion-matrix-from-data-without-sklearn
     nr_classes = int(max(LTrue) - min(LTrue)) + 1 #find number of classes
 
-    cM = [[sum([(LTrue[i] == true_class) and (LPred[i] == pred_class) 
-                for i in range(len(LTrue))])
+    cM = [[sum([(LTrue[i] == true_class) and (LPred[i] == pred_class) for i in range(len(LTrue))])
            for pred_class in range(1, nr_classes + 1)] 
            for true_class in range(1, nr_classes + 1)]
     cM = np.array(cM)
